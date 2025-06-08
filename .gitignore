@@ -1,0 +1,20 @@
+# Arquivos Sensíveis
+/web/WEB-INF/.env
+/Script de Desenvolvimento do Projeto
+
+
+# Arquivos do NetBeans
+nbproject/private/
+build/
+dist/
+*.class
+*.log
+
+
+# Arquivos Temporários
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+
+
