@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.com.prsoftware.controller;
+package br.com.prsoftware.servlet;
 
 /**
  *
  * @author Paulo
  */
-public class SessaoServlet {
+public class ReservasServlet {
     
 }

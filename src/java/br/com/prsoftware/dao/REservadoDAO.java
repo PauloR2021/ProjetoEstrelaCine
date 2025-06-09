@@ -8,6 +8,6 @@ package br.com.prsoftware.dao;
  *
  * @author Paulo
  */
-public class REservadoDAO {
+public class ReservadoDAO {
     
 }
