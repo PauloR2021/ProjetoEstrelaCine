@@ -1,8 +1,11 @@
+<%-- 
+    Document   : login
+    Created on : 13 de jun. de 2025, 18:36:45
+    Author     : Paulo
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
 <html>
     <head>
         <title>Estrela Cine - Login</title>
@@ -12,7 +15,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     <body>
         <header class="cabecalho">
             <div class="nav-buttons">
-                <a href="login.html">Login</a> 
+                <a href="index.html">Início</a> 
             </div>
         </header>
         <div class="container">
@@ -35,3 +38,4 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         
     </body>
 </html>
+

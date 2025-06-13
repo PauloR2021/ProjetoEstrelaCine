@@ -1,11 +1,14 @@
+<%-- 
+    Document   : homeAdmin
+    Created on : 13 de jun. de 2025, 18:45:32
+    Author     : Paulo
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
-<html>
+<html lang="pt-BR">
     <head>
-        <title>Estrela Cine</title>
+        <title>Estrela Cine - Home Admin</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -13,6 +16,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <header class="cabecalho">
             <div class="nav-buttons">
                 <a href="login">Login</a>
+                <a href="filmesAdmin">Cadastrar Filmes</a>
+                <a href="reservasAdmin">Visualizar Todas as Reservas</a>
+                <a href="sessoesAdmin">Cadastrar Sessões</a>
             </div>
         </header>
         <main>

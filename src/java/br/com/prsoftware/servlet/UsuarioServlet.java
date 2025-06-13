@@ -40,7 +40,7 @@ public class UsuarioServlet extends HttpServlet {
                 
                 try {
                     dao.inserir(u);
-                    response.sendRedirect("login.html");
+                    response.sendRedirect("login.jsp");
                 } catch (Exception e) {
                     e.printStackTrace();
                     response.getWriter().println("Erro ao cadastrar: " + e.getMessage());
@@ -57,9 +57,9 @@ public class UsuarioServlet extends HttpServlet {
                     session.setAttribute("usuario", u);
 
                     if(u.isAdmin()){
-                        response.sendRedirect("filmesAdmin.html");
+                        response.sendRedirect("homeAdmin.jsp");
                     }else{
-                        response.sendRedirect("home.html");
+                        response.sendRedirect("home.jsp");
                     }
                 }else{
                   response.getWriter().println("Login inválido." );
@@ -72,7 +72,7 @@ public class UsuarioServlet extends HttpServlet {
             
         }catch (Exception e){
             e.printStackTrace();
-            response.sendRedirect("login.html?erro=true");
+            response.sendRedirect("login.jsp?erro=true");
         }
         
     }
