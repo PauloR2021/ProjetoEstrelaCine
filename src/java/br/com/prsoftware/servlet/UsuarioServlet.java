@@ -12,6 +12,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -67,13 +70,13 @@ public class UsuarioServlet extends HttpServlet {
 
             }
             
-                       
-         
-            
-        }catch (Exception e){
-            e.printStackTrace();
-            response.sendRedirect("login.jsp?erro=true");
-        }
+        }catch (SQLException ex){
+            ex.printStackTrace(); // Mantém no log
+            request.setAttribute("mensagemErro", "Erro ao Cadastrar o Filme");
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+         }
         
     }
     

@@ -6,6 +6,7 @@ package br.com.prsoftware.dao;
 
 import br.com.prsoftware.env.EnvLoader;
 import br.com.prsoftware.model.FilmeModel;
+import br.com.prsoftware.model.FilmesIdModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -44,6 +45,22 @@ public class FilmeDAO {
         }
         return lista;
     }
+    
+    public List<FilmesIdModel> listarFilmesId() throws SQLException, ClassNotFoundException{
+       List<FilmesIdModel> lista = new ArrayList<>();
+       String sql = "SELECT id,titulos FROM db_filmes";
+       try(Connection conn = getConnection(); PreparedStatement ps= conn.prepareStatement(sql); ResultSet rs=ps.executeQuery()){
+           while(rs.next()){
+               FilmesIdModel filme = new FilmesIdModel();
+               filme.setId(rs.getInt("id"));
+               filme.setTitulo(rs.getString("titulo"));
+               lista.add(filme);
+           }
+       }catch (SQLException e){
+           e.printStackTrace();
+       }
+       return lista;
+   }
     
     public void inserirFilme(FilmeModel filme) throws Exception {
         String sql = "INSERT INTO db_filmes (titulo, duracao, genero, sinopse) VALUES (?, ?, ?, ?)";

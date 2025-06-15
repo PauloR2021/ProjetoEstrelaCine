@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  * @author Paulo
  */
 @WebServlet("/filmesAdmin")
-public class FilmesServlet extends HttpServlet{
+public class FilmesAdminServlet extends HttpServlet{
     
     private FilmeDAO dao = new FilmeDAO();
     
@@ -33,15 +33,16 @@ public class FilmesServlet extends HttpServlet{
             request.setAttribute("filmes", lista);
             request.getRequestDispatcher("filmesAdmin.jsp").forward(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(FilmesServlet.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace(); // Mantém no log
+            request.setAttribute("mensagemErro", "Erro ao carregar filmes.");
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FilmesServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FilmesAdminServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException{
-        String acao = request.getParameter("acao");
         
         try{
             String titulo = request.getParameter("titulo");
@@ -59,8 +60,16 @@ public class FilmesServlet extends HttpServlet{
             dao.inserirFilme(filme);
             
             response.sendRedirect("filmesAdmin");
-        } catch (Exception e) {
-            throw new ServletException(e); }
+        }catch (NumberFormatException e) {
+            request.setAttribute("mensagemErro", "Duração inválida. Insira um número.");
+            request.getRequestDispatcher("filmesAdmin.jsp").forward(request, response);
+        }catch (SQLException ex) {
+            ex.printStackTrace(); // Mantém no log
+            request.setAttribute("mensagemErro", "Erro ao Cadastrar o Filme");
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(FilmesAdminServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
     
 }

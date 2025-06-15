@@ -19,9 +19,9 @@
     <body>
         <header class="cabecalho">
             <div class="nav-buttons">
-                <a href="homeAdmin.jsp">Voltar</a>
+                <a href="homeAdmin">Voltar</a>
                 <a href="reservasAdmin">Visualizar Todas as Reservas</a>
-                <a href="sessoesAdmin">Cadastrar Sessões</a>
+                <a href="sessaoAdmin">Cadastrar Sessões</a>
             </div>
         </header>
         
@@ -33,14 +33,17 @@
                     <p>Nenhum Filme Cadastrado.</p>
                 <% } else { %>
                     <table border="1">
-                        <tr>
-                            <th>ID</th>
-                            <th>Titulo</th>
-                            <th>Duração - Minutos</th>
-                            <th>Gênero</th>
-                            <th>Sinopse</th>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Titulo</th>
+                                <th>Duração - Minutos</th>
+                                <th>Gênero</th>
+                                <th>Sinopse</th>
+                            </tr>
+                        </thead>
                         <% for (FilmeModel p : lista) { %>
+                        <thead>
                             <tr>
                                 <td><%= p.getId() %></td>
                                 <td><%= p.getTitulo() %></td>
@@ -52,7 +55,7 @@
                                     <form action="editar" method="post" style="display:inline;">
                                         <input type="hidden" name="id" value="<%=p.getId() %>">
                                         <button type="submit" class="btn-editar" onclick="return confirm('Deseja realmente Editar esse Filme?')">
-                                            <i class="fas fa-check-circle"></i> DEVOLVER
+                                            <i class="fas fa-check-circle"></i> EDITAR
                                         </button>   
                                     </form>
                                 </td>
@@ -62,12 +65,13 @@
                                     <form action="excluir" method="post" style="display:inline;">
                                         <input type="hidden" name="id" value="<%=p.getId() %>">
                                         <button type="submit" class="btn-excluir" onclick="return confirm('Deseja realmente Excluir o Filme?')">
-                                          <i class="fas fa-times-circle"></i> CANCELAR
+                                          <i class="fas fa-times-circle"></i> EXCLUIR
                                         </button>   
                                     </form>
 
                                 </td> 
                             </tr>
+                        </thead>
 
                         <% } %>
                     </table>
@@ -76,7 +80,7 @@
             
             <div class="container-adicionar">
                 <h1>Adicionar Filmes</h1>
-                <form action="adicionarFilmes" method="post">
+                <form action="filmesAdmin" method="post">
                   <label for="titulo">Titulo do Filme:</label>
                   <input type="text" id="titulo" name="titulo" required autocomplete="off">
 

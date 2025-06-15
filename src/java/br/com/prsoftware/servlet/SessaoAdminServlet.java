@@ -1,0 +1,71 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package br.com.prsoftware.servlet;
+
+
+import br.com.prsoftware.dao.SessaoDAO;
+import br.com.prsoftware.model.SessaoModel;
+import jakarta.servlet.RequestDispatcher;
+import java.io.IOException;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Paulo
+ */
+@WebServlet(name = "HelloServlet", urlPatterns = {"/sessaoAdmin"})
+public class SessaoAdminServlet extends HttpServlet {
+
+    private SessaoDAO dao = new SessaoDAO();
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+           throws ServletException, IOException {
+
+       RequestDispatcher dispatcher = request.getRequestDispatcher("sessaoAdmin.jsp");
+       dispatcher.forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        try {
+            int idFilme = Integer.parseInt(request.getParameter("id")); 
+
+            String dataStr = request.getParameter("data"); 
+            String horaStr = request.getParameter("hora"); 
+            Date data = Date.valueOf(dataStr);  
+            Time hora = Time.valueOf(horaStr + ":00");
+            
+            String sala = request.getParameter("sala");
+            int assentos = Integer.parseInt(request.getParameter("assentos"));
+
+            SessaoModel sessao = new SessaoModel();
+            sessao.setIdFilme(idFilme);
+            sessao.setData(data); // ou Date.valueOf(data)
+            sessao.setHora(hora); // ou Time.valueOf(hora + ":00")
+            sessao.setSala(sala);
+            sessao.setAssentos(assentos);
+
+            dao.inserirSessao(sessao);
+
+            response.sendRedirect("sessaoAdmin"); // corrigido
+        } catch (SQLException ex) {
+            ex.printStackTrace(); // Mantém no log
+            request.setAttribute("mensagemErro", "Erro ao Cadastrar o Sessao");
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
+        } catch (Exception e) {
+            Logger.getLogger(SessaoAdminServlet.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+}
+

@@ -1,8 +1,11 @@
+<%-- 
+    Document   : index
+    Created on : 15 de jun. de 2025, 08:01:30
+    Author     : Paulo
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
 <html>
     <head>
         <title>Estrela Cine</title>
