@@ -15,7 +15,7 @@
     <body>
         <header class="cabecalho">
             <div class="nav-buttons">
-                <a href="index.html">Início</a> 
+                <a href="index.jsp">Início</a> 
             </div>
         </header>
         <div class="container">
@@ -31,7 +31,7 @@
                 
             </form>
             <div>
-                <a href="cadastro.html">Criar Conta</a>
+                <a href="cadastro">Criar Conta</a>
             </div>
             
         </div>

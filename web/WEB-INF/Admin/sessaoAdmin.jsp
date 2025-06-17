@@ -17,6 +17,9 @@
 </head>
 <body>
     <header class="cabecalho">
+        <div class="nav-button-logout"> 
+            <a href="logout">Logout</a>
+        </div>
         <div class="nav-buttons">
             <a href="homeAdmin">Home</a>
             <a href="filmesAdmin">Cadastrar Filmes</a>

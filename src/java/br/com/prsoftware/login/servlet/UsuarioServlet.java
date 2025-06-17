@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.com.prsoftware.servlet;
+package br.com.prsoftware.login.servlet;
 import br.com.prsoftware.dao.UsuarioDAO;
 import br.com.prsoftware.model.UsuarioModel;
 import jakarta.servlet.ServletException;
@@ -20,9 +20,9 @@ import java.util.logging.Logger;
  *
  * @author Paulo
  */
-@WebServlet("/usuario")
+@WebServlet(name = "UsuarioServlet", urlPatterns = {"/usuario"})
 public class UsuarioServlet extends HttpServlet {
-     private UsuarioDAO dao = new UsuarioDAO();
+     private final UsuarioDAO dao = new UsuarioDAO();
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -60,9 +60,10 @@ public class UsuarioServlet extends HttpServlet {
                     session.setAttribute("usuario", u);
 
                     if(u.isAdmin()){
-                        response.sendRedirect("homeAdmin.jsp");
+                        request.getRequestDispatcher("/WEB-INF/Admin/homeAdmin.jsp").forward(request, response);
                     }else{
-                        response.sendRedirect("home.jsp");
+                        request.getRequestDispatcher("/WEB-INF/Usuario/home.jsp").forward(request, response);
+                      
                     }
                 }else{
                   response.getWriter().println("Login inválido." );

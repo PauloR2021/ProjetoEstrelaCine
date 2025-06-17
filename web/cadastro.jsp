@@ -1,8 +1,11 @@
+<%-- 
+    Document   : cadastro
+    Created on : 16 de jun. de 2025, 19:11:19
+    Author     : Paulo
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
 <html>
     <head>
         <link rel="stylesheet" href="style.css" type="text/css"/>
@@ -14,7 +17,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     <body>
         <header>
             <div>
-                <a href="login.html">Voltar</a>
+                <a href="login">Voltar</a>
             </div>
         </header>
         
