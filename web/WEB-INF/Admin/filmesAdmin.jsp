@@ -39,51 +39,57 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Capa</th>
                                 <th>Titulo</th>
                                 <th>Duração - Minutos</th>
                                 <th>Gênero</th>
                                 <th>Sinopse</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
+                        <tbody>
                         <% for (FilmeModel p : lista) { %>
-                        <thead>
                             <tr>
                                 <td><%= p.getId() %></td>
-                                <td><%= p.getTitulo() %></td>
-                                <td><%= p.getDuracao()%></td>
-                                <td><%= p.getGenero()%></td>
-                                <td><%= p.getSinopse()%></td>
+                                <!-- Coluna da capa -->
                                 <td>
-                                    <!-- Criando o Button para Editar o Filme -->
+                                    <% if (p.getCapa() != null && !p.getCapa().isEmpty()) { %>
+                                       <img src="<%= p.getCapa() %>" alt="Capa de <%= p.getTitulo() %>" style="max-height:100px;" />
+                                    <% } else { %>
+                                        Sem capa
+                                    <% } %>
+                                </td>
+                                <td><%= p.getTitulo() %></td>
+                                <td><%= p.getDuracao() %></td>
+                                <td><%= p.getGenero() %></td>
+                                <td><%= p.getSinopse() %></td>
+                                
+                                    <!-- Botão para editar -->
                                     <form action="editar" method="post" style="display:inline;">
-                                        <input type="hidden" name="id" value="<%=p.getId() %>">
-                                        <button type="submit" class="btn-editar" onclick="return confirm('Deseja realmente Editar esse Filme?')">
-                                            <i class="fas fa-check-circle"></i> EDITAR
+                                        <input type="hidden" name="id" value="<%= p.getId() %>">
+                                        <button type="submit" class="btn-editar" onclick="return confirm('Deseja realmente editar esse filme?')">
+                                            Editar
+                                        </button>   
+                                    </form>
+                                    <!-- Botão para excluir -->
+                                    <form action="excluir" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="<%= p.getId() %>">
+                                        <button type="submit" class="btn-excluir" onclick="return confirm('Deseja realmente excluir esse filme?')">
+                                            Excluir
                                         </button>   
                                     </form>
                                 </td>
-
-                                <td>
-                                    <!-- Criando o Button para Excluir o Filme -->
-                                    <form action="excluir" method="post" style="display:inline;">
-                                        <input type="hidden" name="id" value="<%=p.getId() %>">
-                                        <button type="submit" class="btn-excluir" onclick="return confirm('Deseja realmente Excluir o Filme?')">
-                                          <i class="fas fa-times-circle"></i> EXCLUIR
-                                        </button>   
-                                    </form>
-
-                                </td> 
                             </tr>
-                        </thead>
-
                         <% } %>
+                        </tbody>
                     </table>
                 <% } %>
             </div>
             
             <div class="container-adicionar">
                 <h1>Adicionar Filmes</h1>
-                <form action="filmesAdmin" method="post">
+                <form action="formularioReserva" method="post">
+                    
                   <label for="titulo">Titulo do Filme:</label>
                   <input type="text" id="titulo" name="titulo" required autocomplete="off">
 
@@ -95,13 +101,14 @@
 
                   <label for="sinopse">Sinopse:</label>
                   <textarea id="sinopse" name="sinopse" rows="5"></textarea>
+
+                  <!-- Campo para upload da capa -->
+                  <label for="capa">Capa do Filme:</label>
+                  <input type="text" id="capa" name="capa" required autocomplete="off">
      
                   <button type="submit">Adicionar</button>
                 </form>
             </div>
         </main>
-            
-            
-     
     </body>
 </html>

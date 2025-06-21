@@ -9,7 +9,10 @@ import br.com.prsoftware.model.SessaoModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -32,5 +35,54 @@ public class SessaoDAO {
             ps.executeUpdate();
         }
     }
+    
+    public List<SessaoModel> listarSessao() throws SQLException, ClassNotFoundException{
+       List<SessaoModel> lista = new ArrayList<>();
+       String sql = "SELECT f.capa,f.titulo,f.genero,s.data,s.horario,s.sala,s.assentos FROM estrela_cine.db_sessoes s JOIN db_filmes f ON f.id = s.id_filme;";
+       try(Connection conn = getConnection(); PreparedStatement ps= conn.prepareStatement(sql); ResultSet rs=ps.executeQuery()){
+           while(rs.next()){
+               SessaoModel sessao = new SessaoModel();
+               sessao.setCapa(rs.getString("capa"));
+               sessao.setTitulo(rs.getString("titulo"));
+               sessao.setGenero(rs.getString("genero"));
+               sessao.setData(rs.getDate("data"));
+               sessao.setHora(rs.getTime("horario"));
+               sessao.setSala(rs.getString("sala"));
+               sessao.setAssentos(rs.getInt("assentos"));
+               lista.add(sessao);
+           }
+       }catch (SQLException e){
+           e.printStackTrace();
+       }
+       return lista;
+    }
+    
+    public List<SessaoModel> listarSessaoId(int Id) throws SQLException, ClassNotFoundException{
+       List<SessaoModel> lista = new ArrayList<>();
+       String sql = "SELECT f.capa,f.titulo,f.genero,s.data,s.horario,s.sala,s.assentos FROM estrela_cine.db_sessoes s JOIN db_filmes f ON f.id = s.id_filme WHERE f.id=? ;";
+       try(Connection conn = getConnection(); PreparedStatement ps= conn.prepareStatement(sql)){
+           ps.setInt(1, Id);
+           
+            try(ResultSet rs=ps.executeQuery();){
+                while(rs.next()){
+                    SessaoModel sessao = new SessaoModel();
+                    sessao.setCapa(rs.getString("capa"));
+                    sessao.setTitulo(rs.getString("titulo"));
+                    sessao.setGenero(rs.getString("genero"));
+                    sessao.setData(rs.getDate("data"));
+                    sessao.setHora(rs.getTime("horario"));
+                    sessao.setSala(rs.getString("sala"));
+                    sessao.setAssentos(rs.getInt("assentos"));
+                    lista.add(sessao);
+                }
+               
+           }
+           
+       }catch (SQLException e){
+           e.printStackTrace();
+       }
+       return lista;
+    }
+    
     
 }

@@ -1,13 +1,8 @@
-<%@page import="br.com.prsoftware.model.FilmesIdModel"%>
+<%@page import="br.com.prsoftware.model.FilmeModel"%>
 <%@page import="java.util.List"%>
 <%
-    List<FilmesIdModel> filmes = (List<FilmesIdModel>) request.getAttribute("filmesId");
-    if(filmes == null){
-      
-    }
-    
+    List<FilmeModel> lista = (List<FilmeModel>) request.getAttribute("filmes");
 %>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -28,26 +23,49 @@
     </header>
 
     <main>
+        <div class="container">
+                <h1>Filmes Cadastrados</h1>
+
+                <% if (lista == null || lista.isEmpty()) { %>
+                    <p>Nenhum Filme Cadastrado.</p>
+                <% } else { %>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>Capa</th>
+                                <th>ID</th>
+                                <th>Titulo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <% for (FilmeModel p : lista) { %>
+                            <tr>
+                                <!-- Coluna da capa -->
+                                <td>
+                                    <% if (p.getCapa() != null && !p.getCapa().isEmpty()) { %>
+                                       <img src="<%= p.getCapa() %>" alt="Capa de <%= p.getTitulo() %>" style="max-height:100px;" />
+                                    <% } else { %>
+                                        Sem capa
+                                    <% } %>
+                                </td>
+                                <td><%= p.getId() %></td>
+                                <td><%= p.getTitulo() %></td>
+                            </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                <% } %>
+            </div>
+        
+        
+        
+        
+        
         <div class="container-adicionar">
             <h1>Cadastro de Sessões</h1>
-            <form action="adicionarSessoes" method="post">
+            <form action="sessaoAdmin" method="post">
                 <label for="filme">Id Filme:</label>
-                <select name="id">
-                    <option value="">Selecione um Filme</option>
-                    <% 
-                        if(filmes != null){
-                            for(FilmesIdModel filme : filmes){    
-                    %> 
-                        <option value="<%= filme.getId() %>"><%= filme.getTitulo() %></option>
-                    <% 
-                            } 
-                        }else{
-                    %>
-                        <option value="">Nenhum filme disponível</option>
-                    <%
-                        }
-                    %>
-                </select>
+                <input type="number" id="id" name="id" required autocomplete="off">
 
                 <label for="data">Data da Sessão:</label>
                 <input type="date" id="data" name="data" required autocomplete="off">

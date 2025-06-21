@@ -10,7 +10,22 @@ public class SessaoModel {
     private Time hora;
     private String sala;
     private int assentos;
+    private String titulo;
+    private String genero;
+    private String capa;
+    
+    
 
+    public SessaoModel(Date data, Time hora, String sala, int assentos, String titulo, String genero,String capa) {
+        this.data = data;
+        this.hora = hora;
+        this.sala = sala;
+        this.assentos = assentos;
+        this.titulo = titulo;
+        this.genero = genero;
+        this.capa = capa;
+    }
+    
     public SessaoModel() {
     }
 
@@ -61,4 +76,33 @@ public class SessaoModel {
     public void setAssentos(int assentos) {
         this.assentos = assentos;
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getCapa() {
+        return capa;
+    }
+
+    public void setCapa(String capa) {
+        this.capa = capa;
+    }
+    
+    
+    
+    
+    
 }

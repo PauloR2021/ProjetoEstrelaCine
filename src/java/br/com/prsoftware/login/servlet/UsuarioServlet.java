@@ -58,6 +58,7 @@ public class UsuarioServlet extends HttpServlet {
                 if(u != null){
                     HttpSession session = request.getSession();
                     session.setAttribute("usuario", u);
+                    session.setAttribute("usuarioId", u.getId()); 
 
                     if(u.isAdmin()){
                         request.getRequestDispatcher("/WEB-INF/Admin/homeAdmin.jsp").forward(request, response);

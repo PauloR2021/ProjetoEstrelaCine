@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
  * @author Paulo
  */
 @WebServlet(name = "HomeAdmin", urlPatterns = {"/homeAdmin"})
-public class HomeAdmin extends HttpServlet {
+public class HomeAdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,5 +41,6 @@ public class HomeAdmin extends HttpServlet {
         // Encaminhar para o JSP
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Admin/homeAdmin.jsp");
         dispatcher.forward(request, response);
+        
     }
 }

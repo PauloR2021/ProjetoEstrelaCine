@@ -5,10 +5,11 @@
 package br.com.prsoftware.Admin.servlet;
 
 
+import br.com.prsoftware.dao.FilmeDAO;
 import br.com.prsoftware.dao.SessaoDAO;
+import br.com.prsoftware.model.FilmeModel;
 import br.com.prsoftware.model.SessaoModel;
 import br.com.prsoftware.model.UsuarioModel;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,6 +20,7 @@ import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,7 +31,8 @@ import java.util.logging.Logger;
 @WebServlet(name = "SessaoAdminServlet", urlPatterns = {"/sessaoAdmin"})
 public class SessaoAdminServlet extends HttpServlet {
 
-    private SessaoDAO dao = new SessaoDAO();
+    private final SessaoDAO dao = new SessaoDAO();
+    private final FilmeDAO filme = new FilmeDAO();
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -48,10 +51,20 @@ public class SessaoAdminServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Acesso não autorizado.");
             return;
         }
+        
+        try {
+            List<FilmeModel> lista = filme.listarFilmes();
+            request.setAttribute("filmes", lista);
+            request.getRequestDispatcher("/WEB-INF/Admin/sessaoAdmin.jsp").forward(request, response);
+        } catch (SQLException ex) {
+            ex.printStackTrace(); // Mantém no log
+            request.setAttribute("mensagemErro", "Erro ao carregar filmes - Erro: "+ex.getMessage());
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FilmesAdminServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 
-       RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Admin/sessaoAdmin.jsp");
-       dispatcher.forward(request, response);
     }
     
     @Override
@@ -89,10 +102,10 @@ public class SessaoAdminServlet extends HttpServlet {
 
             dao.inserirSessao(sessao);
 
-            response.sendRedirect("/WEB-INF/Admin/sessaoAdmin"); // corrigido
+            request.getRequestDispatcher("/WEB-INF/Admin/filmesAdmin.jsp"); // corrigido
         } catch (SQLException ex) {
             ex.printStackTrace(); // Mantém no log
-            request.setAttribute("mensagemErro", "Erro ao Cadastrar o Sessao");
+            request.setAttribute("mensagemErro", "Erro ao Cadastrar o Sessao - Erro: "+ex.getMessage());
             request.getRequestDispatcher("erro.jsp").forward(request, response);
         } catch (Exception e) {
             Logger.getLogger(SessaoAdminServlet.class.getName()).log(Level.SEVERE, null, e);

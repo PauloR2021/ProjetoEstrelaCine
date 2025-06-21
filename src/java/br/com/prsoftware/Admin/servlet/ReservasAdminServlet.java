@@ -51,7 +51,7 @@ public class ReservasAdminServlet extends HttpServlet{
              request.getRequestDispatcher("/WEB-INF/Admin/reservasAdmin.jsp").forward(request, response);
          } catch (SQLException ex) {
              ex.printStackTrace(); // Mantém no log
-             request.setAttribute("mensagemErro", "Erro ao Carregar as Reservas");
+             request.setAttribute("mensagemErro", "Erro ao Carregar as Reservas - Erro: "+ex.getMessage());
              request.getRequestDispatcher("erro.jsp").forward(request, response);
          } catch (ClassNotFoundException ex) {
              Logger.getLogger(FilmesAdminServlet.class.getName()).log(Level.SEVERE, null, ex);

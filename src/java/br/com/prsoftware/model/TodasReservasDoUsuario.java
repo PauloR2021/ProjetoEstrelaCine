@@ -4,35 +4,35 @@
  */
 package br.com.prsoftware.model;
 
-import java.sql.Date;
 import java.sql.Time;
+import java.util.Date;
 
 /**
  *
  * @author Paulo
  */
-public class FilmeModel {
+public class TodasReservasDoUsuario {
     
-    private int id;
-    private String titulo;
-    private int duracao;
-    private String genero;
-    private String sinopse;
     private String capa;
+    private String titulo;
+    private int id;
+    private String nome;
     private Date data;
     private Time hora;
     private String sala;
+    private String status;
+
+    public TodasReservasDoUsuario() {
+    }
     
-    public FilmeModel() {
-        
+    
+
+    public String getCapa() {
+        return capa;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setCapa(String capa) {
+        this.capa = capa;
     }
 
     public String getTitulo() {
@@ -43,36 +43,20 @@ public class FilmeModel {
         this.titulo = titulo;
     }
 
-    public int getDuracao() {
-        return duracao;
+    public int getId() {
+        return id;
     }
 
-    public void setDuracao(int duracao) {
-        this.duracao = duracao;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getGenero() {
-        return genero;
+    public String getNome() {
+        return nome;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public String getSinopse() {
-        return sinopse;
-    }
-
-    public void setSinopse(String sinopse) {
-        this.sinopse = sinopse;
-    }
-
-    public String getCapa() {
-        return capa;
-    }
-
-    public void setCapa(String capa) {
-        this.capa = capa;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public Date getData() {
@@ -98,8 +82,14 @@ public class FilmeModel {
     public void setSala(String sala) {
         this.sala = sala;
     }
-    
-    
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
     
     
     

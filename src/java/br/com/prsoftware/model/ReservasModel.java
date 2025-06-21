@@ -4,16 +4,24 @@
  */
 package br.com.prsoftware.model;
 
+import java.sql.Date;
+import java.sql.Time;
+
 /**
  *
  * @author Paulo
  */
 public class ReservasModel {
     private int id;
+    private int id_usuario;
     private int id_sessao;
     private String nome_usuario;
     private int qtd_assentos;
     private String status;
+    private String titulo;
+    private Date data;
+    private Time hora;
+    private String sala;
 
     public ReservasModel() {
     }
@@ -25,6 +33,16 @@ public class ReservasModel {
     public void setId(int id) {
         this.id = id;
     }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+    
+    
 
     public int getId_sessao() {
         return id_sessao;
@@ -57,5 +75,40 @@ public class ReservasModel {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public Time getHora() {
+        return hora;
+    }
+
+    public void setHora(Time hora) {
+        this.hora = hora;
+    }
+
+    public String getSala() {
+        return sala;
+    }
+
+    public void setSala(String sala) {
+        this.sala = sala;
+    }
+    
+    
+    
     
 }

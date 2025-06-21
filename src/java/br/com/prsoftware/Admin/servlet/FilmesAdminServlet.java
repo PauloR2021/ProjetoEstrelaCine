@@ -51,7 +51,7 @@ public class FilmesAdminServlet extends HttpServlet{
             request.getRequestDispatcher("/WEB-INF/Admin/filmesAdmin.jsp").forward(request, response);
         } catch (SQLException ex) {
             ex.printStackTrace(); // Mantém no log
-            request.setAttribute("mensagemErro", "Erro ao carregar filmes.");
+            request.setAttribute("mensagemErro", "Erro ao carregar filmes - Erro : "+ex.getMessage());
             request.getRequestDispatcher("erro.jsp").forward(request, response);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FilmesAdminServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,24 +60,12 @@ public class FilmesAdminServlet extends HttpServlet{
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException{
-        HttpSession session = request.getSession(false); // false = não cria nova sessão
-        
-        if (session == null || session.getAttribute("usuario") == null) {
-           response.sendRedirect("login.jsp");
-           return;
-        }
-        
-        UsuarioModel usuario = (UsuarioModel) session.getAttribute("usuario");
-        
-        if (!usuario.isAdmin()) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Acesso não autorizado.");
-            return;
-        }
         try{
             String titulo = request.getParameter("titulo");
             int duracao = Integer.parseInt(request.getParameter("duracao"));
             String genero = request.getParameter("genero");
             String sinopse = request.getParameter("sinopse");
+            String capa = request.getParameter("capa");
             
             FilmeModel filme = new FilmeModel();
             
@@ -85,6 +73,7 @@ public class FilmesAdminServlet extends HttpServlet{
             filme.setDuracao(duracao);
             filme.setGenero(genero);
             filme.setSinopse(sinopse);
+            filme.setCapa(capa);
             
             dao.inserirFilme(filme);
             
@@ -94,11 +83,12 @@ public class FilmesAdminServlet extends HttpServlet{
             request.getRequestDispatcher("/WEB-INF/Admin/filmesAdmin.jsp").forward(request, response);
         }catch (SQLException ex) {
             ex.printStackTrace(); // Mantém no log
-            request.setAttribute("mensagemErro", "Erro ao Cadastrar o Filme");
+            request.setAttribute("mensagemErro", "Erro ao Cadastrar o Filme - Erro: "+ex.getMessage());
             request.getRequestDispatcher("erro.jsp").forward(request, response);
         } catch (Exception ex) {
             Logger.getLogger(FilmesAdminServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
+    
     
 }
