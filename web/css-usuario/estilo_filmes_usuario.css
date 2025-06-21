@@ -1,0 +1,127 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 21 de jun. de 2025, 18:37:51
+    Author     : Paulo
+*/
+
+
+:root{
+    
+    --cor-body-background: #121212;
+    --cor-body-color: #f0f0f0;
+    --cor-cabecalho-background: #1f1f1f;
+    --cor-nav-background: #ff4500;
+    --cor-nav-hover-background: #e03e00;
+    --cor-main-background: #1e1e1e;
+    --cor-h1-color: #ff9900;
+    --cor-table-background: #1a1a1a;
+    --cor-th-background: #2b2b2b;
+    --cor-th-color: #ffcc00;
+    --cor-button-background: #ff4500;
+    --cor-button-hover-background: #e03e00;
+    
+    
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--cor-body-background);
+    color: var(--cor-body-color);
+    margin: 0;
+    padding: 0;
+}
+
+.cabecalho {
+    background-color: var(--cor-cabecalho-background);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav-buttons,
+.nav-button-logout {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-buttons a,
+.nav-button-logout a {
+    color: white;
+    text-decoration: none;
+    background-color: var(--cor-nav-background);
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.nav-buttons a:hover,
+.nav-button-logout a:hover {
+    background-color: var(--cor-nav-hover-background);
+}
+
+main {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: var(--cor-main-background);
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+h1 {
+    text-align: center;
+    color: var(--cor-h1-color);
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--cor-table-background);
+    color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #444;
+}
+
+th {
+    background-color: var(--cor-th-background);
+    color: var(--cor-th-color);
+}
+
+img {
+    max-height: 100px;
+    border-radius: 5px;
+}
+
+form {
+    display: inline-block;
+}
+
+button {
+    background-color: var(--cor-button-background);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #e03e00;
+}
+
+
+
