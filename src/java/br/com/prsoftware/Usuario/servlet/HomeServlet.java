@@ -23,12 +23,14 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-         HttpSession session = request.getSession(false); // false = não cria nova sessão
+        HttpSession session = request.getSession(false); // false = não cria nova sessão
         
         if (session == null || session.getAttribute("usuario") == null) {
            response.sendRedirect("login.jsp");
            return;
         }
+        
+        request.setAttribute("usuario", session.getAttribute("usuario"));
         
         
 

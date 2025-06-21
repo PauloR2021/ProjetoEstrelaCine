@@ -11,6 +11,7 @@
         <title>Estrela Cine</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css-login/estilo_index.css">
     </head>
     <body>
         <header class="cabecalho">
@@ -18,7 +19,7 @@
                 <a href="login">Login</a>
             </div>
         </header>
-        <main>
+        <main class="container">
             <h2>Bem-vindo ao Estrela Cine</h2>
             <p>
                 O <strong>Estrela Cine</strong> é um sistema web de reservas de ingressos para cinema, desenvolvido em Java com Servlets e banco de dados MySQL. 
@@ -36,6 +37,7 @@
         </main>
         <hr>
         <footer style="text-align: center; font-size: 14px; color: #777; margin-top: 20px;">
+            <hr style="border-color: #444;">
             <p>&copy; 2025 Estrela Cine. Todos os direitos reservados.</p>
             <p>Desenvolvido por Paulo Ricardo com Java, Servlets e MySQL.</p>
         </footer>

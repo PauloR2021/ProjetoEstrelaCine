@@ -67,7 +67,8 @@ public class UsuarioServlet extends HttpServlet {
                       
                     }
                 }else{
-                  response.getWriter().println("Login inválido." );
+                  request.setAttribute("mensagemErro", "Usuário Inválido");
+                  request.getRequestDispatcher("erro.jsp").forward(request, response);
                 }
 
             }

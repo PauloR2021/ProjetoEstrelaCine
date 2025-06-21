@@ -3,7 +3,9 @@
     Created on : 13 de jun. de 2025, 18:47:41
     Author     : Paulo
 --%>
-
+<%
+    br.com.prsoftware.model.UsuarioModel usuario = (br.com.prsoftware.model.UsuarioModel) session.getAttribute("usuario");
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,6 +13,7 @@
         <title>Estrela Cine - Home</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <link rel="stylesheet" href="css-usuario/estilo_home_usuario.css">
     </head>
     <body>
         <header class="cabecalho">
@@ -26,6 +29,7 @@
         
         <main>
             <h2>Bem-vindo ao Estrela Cine</h2>
+             <h3>Olá, ${usuario.nome}! 👋</h3>
             <p>
                 O <strong>Estrela Cine</strong> é um sistema web de reservas de ingressos para cinema, desenvolvido em Java com Servlets e banco de dados MySQL. 
                 
