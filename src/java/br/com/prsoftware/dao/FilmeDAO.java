@@ -49,7 +49,33 @@ public class FilmeDAO {
     
     public List<FilmeModel> listarFilmesId(int Id) throws SQLException, ClassNotFoundException{
         List<FilmeModel> lista = new ArrayList<>();
-        String sql = "SELECT f.capa,f.titulo,s.data, s.horario,s.sala FROM db_sessoes s JOIN db_filmes f ON f.id = s.id_filme WHERE s.id_filme=?;";
+        String sql = "SELECT f.capa,f.titulo,s.id,s.data, s.horario,s.sala FROM db_sessoes s JOIN db_filmes f ON f.id = s.id_filme WHERE s.id_filme=?;";
+        try(Connection conn = getConnection(); PreparedStatement ps= conn.prepareStatement(sql)){
+            ps.setInt(1, Id);
+           
+            try(ResultSet rs=ps.executeQuery();){
+                while(rs.next()){
+                    FilmeModel sessao = new FilmeModel();
+                    sessao.setIdSesao(rs.getInt("id"));
+                    sessao.setCapa(rs.getString("capa"));
+                    sessao.setTitulo(rs.getString("titulo"));
+                    sessao.setData(rs.getDate("data"));
+                    sessao.setHora(rs.getTime("horario"));
+                    sessao.setSala(rs.getString("sala"));
+                    lista.add(sessao);
+                }
+            }
+               
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return lista;
+    }
+    
+    
+    public List<FilmeModel> listarFilmesEditarId(int Id) throws SQLException, ClassNotFoundException{
+        List<FilmeModel> lista = new ArrayList<>();
+        String sql = "SELECT * FROM db_filmes WHERE id=?";
         try(Connection conn = getConnection(); PreparedStatement ps= conn.prepareStatement(sql)){
             ps.setInt(1, Id);
            
@@ -58,9 +84,10 @@ public class FilmeDAO {
                     FilmeModel sessao = new FilmeModel();
                     sessao.setCapa(rs.getString("capa"));
                     sessao.setTitulo(rs.getString("titulo"));
-                    sessao.setData(rs.getDate("data"));
-                    sessao.setHora(rs.getTime("horario"));
-                    sessao.setSala(rs.getString("sala"));
+                    sessao.setDuracao(rs.getInt("duracao"));
+                    sessao.setGenero(rs.getString("genero"));
+                    sessao.setSinopse(rs.getString("sinopse"));
+                    
                     lista.add(sessao);
                 }
             }
@@ -82,4 +109,25 @@ public class FilmeDAO {
             ps.executeUpdate();
         }
     }
+    
+    public void editarFilme(FilmeModel filme) throws Exception {
+        String sql = "UPDATE db_filmes SET titulo = ?, duracao=?, genero=?, sinopse=?, capa=? WHERE id=?";
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, filme.getTitulo());
+            ps.setInt(2, filme.getDuracao());
+            ps.setString(3, filme.getGenero());
+            ps.setString(4, filme.getSinopse());
+            ps.setString(5, filme.getCapa());
+            ps.setInt(6, filme.getId());
+            ps.executeUpdate();
+        }
+    }
+    public void excluirFilme(FilmeModel filme) throws Exception {
+        String sql = "DELETE FROM db_filmes WHERE id = ?;";
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, filme.getId());
+            ps.executeUpdate();
+        }
+    }
+    
 }

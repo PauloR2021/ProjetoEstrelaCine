@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpSession;
  */
 @WebServlet(name = "HomeAdmin", urlPatterns = {"/homeAdmin"})
 public class HomeAdminServlet extends HttpServlet {
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -31,8 +32,10 @@ public class HomeAdminServlet extends HttpServlet {
            response.sendRedirect("login.jsp");
            return;
         }
+        request.setAttribute("usuario", session.getAttribute("usuario"));
         
         UsuarioModel usuario = (UsuarioModel) session.getAttribute("usuario");
+        
         
         if (!usuario.isAdmin()) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Acesso não autorizado.");

@@ -39,6 +39,7 @@ public class SessaoServlet extends HttpServlet {
 
         Integer userId = (Integer) session.getAttribute("usuarioId");
         String acao = request.getParameter("acao");
+        request.setAttribute("usuario", session.getAttribute("usuario"));
 
         if (userId != null) {
             try {
@@ -62,7 +63,7 @@ public class SessaoServlet extends HttpServlet {
                 }
 
             } catch (SQLException | ClassNotFoundException ex) {
-                ex.printStackTrace();
+             
                 request.setAttribute("mensagemErro", "Erro ao carregar Sessão- Erro: "+ex.getMessage());
                 request.getRequestDispatcher("erro.jsp").forward(request, response);
             }

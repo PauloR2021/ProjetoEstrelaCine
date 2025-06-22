@@ -10,6 +10,9 @@
 <%
     List<SessaoModel> lista = (List<SessaoModel>) request.getAttribute("sessao");
 %>
+<%
+    br.com.prsoftware.model.UsuarioModel usuario = (br.com.prsoftware.model.UsuarioModel) session.getAttribute("usuario");
+%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -28,6 +31,9 @@
                 <a href="home">Home</a>
                  <a href="filmes">Filmes</a>
                 <a href="reservas">Visualizar Todas as Reservas</a>  
+            </div>
+            <div>
+                <h3>Olá, ${usuario.nome}! 👋</h3>
             </div>
         </header>
            

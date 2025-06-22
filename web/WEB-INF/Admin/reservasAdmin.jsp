@@ -10,13 +10,18 @@
 <%
     List<ReservasModel> lista = (List<ReservasModel>) request.getAttribute("reservas");
 %>
+<%
+    br.com.prsoftware.model.UsuarioModel usuario = (br.com.prsoftware.model.UsuarioModel) session.getAttribute("usuario");
+%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Estrela Cine - Reservas Admin</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css-admin/estilo_reservas_admin.css">
     </head>
     <body>
         <header class="cabecalho">
@@ -27,6 +32,10 @@
                 <a href="homeAdmin">Home</a>
                 <a href="filmesAdmin">Cadastrar Filmes</a>
                 <a href="sessaoAdmin">Cadastrar Sessões</a>
+                <a href="criarUsuario">Adicionar Usuário</a>
+            </div>
+            <div>
+                <h3>Olá, ${usuario.nome}! 👋</h3>
             </div>
         </header>
         
@@ -36,8 +45,8 @@
         <% if (lista == null || lista.isEmpty()) { %>
             <p>Nenhuma Reservas no Momento.</p>
         <% } else { %>
-            <table border="1">
-                <th>
+            <table>
+                <thead>
                     <tr>
                         <th>ID Reserva</th>
                         <th>ID Sessão</th>
@@ -45,20 +54,18 @@
                         <th>Assentos</th>
                         <th>Status</th>
                     </tr>
-                </th>
-                <% for (ReservasModel p : lista) { %>
-                <th>
+                </thead>
+                <tbody>
+                    <% for (ReservasModel p : lista) { %>
                     <tr>
                         <td><%= p.getId() %></td>
                         <td><%= p.getId_sessao() %></td>
-                        <td><%= p.getNome_usuario()%></td>
-                        <td><%= p.getQtd_assentos()%></td>
-                        <td><%= p.getStatus()%></td>
-
+                        <td><%= p.getNome_usuario() %></td>
+                        <td><%= p.getQtd_assentos() %></td>
+                        <td><%= p.getStatus() %></td>
                     </tr>
-                </th>
-                    
-                <% } %>
+                    <% } %>
+                </tbody>
             </table>
             <% } %>
         </div>

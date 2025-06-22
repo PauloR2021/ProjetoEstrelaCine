@@ -20,8 +20,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -57,15 +56,17 @@ public class FormularioReserva extends HttpServlet {
                 request.setAttribute("filmes", lista);
                 request.getRequestDispatcher("/WEB-INF/Usuario/formularioReserva.jsp").forward(request, response);
             } catch (SQLException ex) {
-                 ex.printStackTrace();
                 request.setAttribute("mensagemErro", "Não é Possivel Mostrar os Filmes - Por causa do Erro: "+ ex.getMessage());
                 request.getRequestDispatcher("erro.jsp").forward(request, response);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FormularioReserva.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute("mensagemErro", "Erro ao carregar filmes - Erro: "+ex.getMessage());
+                request.getRequestDispatcher("erro.jsp").forward(request, response);
             }
          
         } else {
-            response.getWriter().println("Nenhum Filme Escolhido para a Reserva.");
+            request.setAttribute("mensagemErro", "Nenhum Filme Escolhido para a Reserva.");
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
+           
         }
 
         
@@ -85,16 +86,17 @@ public class FormularioReserva extends HttpServlet {
         
         try{
             
-            String idSessao = request.getParameter("idSessao");
-            if (idSessao != null) {
-                int id = Integer.parseInt(idSessao);
+            String idFilme = request.getParameter("idFilme");
+            if (idFilme != null) {
+                
                 Integer userId = (Integer) session.getAttribute("usuarioId");
+                int idSesao = Integer.parseInt(request.getParameter("sessao"));
                 String dataStr = request.getParameter("data"); 
                 String horaStr = request.getParameter("hora"); 
                 Date data = Date.valueOf(dataStr);  
                 Time hora = Time.valueOf(horaStr + ":00");
             
-            String sala = request.getParameter("sala");
+                String sala = request.getParameter("sala");
                 
                 int quantidade = Integer.parseInt(request.getParameter("quantidade"));
                 String status = request.getParameter("status");
@@ -102,7 +104,7 @@ public class FormularioReserva extends HttpServlet {
                 ReservasModel reserva = new ReservasModel();
                 
                 reserva.setId_usuario(userId);
-                reserva.setId_sessao(id);
+                reserva.setId_sessao(idSesao);
                 reserva.setData(data);
                 reserva.setHora(hora);
                 reserva.setSala(sala);
@@ -113,14 +115,17 @@ public class FormularioReserva extends HttpServlet {
               
                 request.getRequestDispatcher("/WEB-INF/Usuario/home.jsp").forward(request, response);
             } else {
-                response.getWriter().println("ID da sessão não fornecido.");
+               
+                request.setAttribute("mensagemErro", "D da sessão não fornecido.");
+                request.getRequestDispatcher("erro.jsp").forward(request, response);
             }
         }catch (SQLException | ClassNotFoundException ex) {
-            ex.printStackTrace();
+           
             request.setAttribute("mensagemErro", "Não é Possivel Criar Reserva - Por causa do Erro: "+ ex.getMessage());
             request.getRequestDispatcher("erro.jsp").forward(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(FormularioReserva.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("mensagemErro", "Não é Possivel Criar Reserva - Por causa do Erro: "+ ex.getMessage());
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
         }
        
         

@@ -8,6 +8,9 @@
 <%
     List<FilmeModel> lista = (List<FilmeModel>) request.getAttribute("filmes");
 %>
+<%
+    br.com.prsoftware.model.UsuarioModel usuario = (br.com.prsoftware.model.UsuarioModel) session.getAttribute("usuario");
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,6 +30,9 @@
                 <a href="reservas">Minhas Reservas</a>
                 <a href="sessao">Sessões</a>
             </div>
+            <div>
+                <h3>Olá, ${usuario.nome}! 👋</h3>
+            </div>
         </header>
         
         <main>
@@ -41,6 +47,7 @@
                             <tr>
                                 <th>Capa</th>
                                 <th>Titulo</th>
+                                <th>ID Sessão</th>
                                 <th>Data</th>
                                 <th>Horario</th>
                                 <th>Sala</th>
@@ -58,6 +65,7 @@
                                     <% } %>
                                 </td>
                                 <td><%= p.getTitulo()%></td>
+                                <td><%= p.getIdSesao()%></td>
                                 <td><%= p.getData()%></td>
                                 <td><%= p.getHora()%></td>
                                 <td><%= p.getSala()%></td>
@@ -78,7 +86,10 @@
                 <form action="formularioReserva" method="post">
                     
                     
-                    <input type="hidden" name="idSessao" value="<%= idSessao %>">
+                    <input type="hidden" name="idFilme" value="<%= idSessao %>">
+                    
+                    <label for="sessao">ID da Sessão:</label>
+                    <input type="number" id="sessao" name="sessao" required autocomplete="off">
                    
                     <label for="data">Data da Sessão:</label>
                     <input type="date" id="data" name="data" required autocomplete="off">

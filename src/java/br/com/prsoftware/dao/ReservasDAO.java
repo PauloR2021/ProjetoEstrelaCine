@@ -73,7 +73,7 @@ public class ReservasDAO {
     
     public List<TodasReservasDoUsuario> listarTodasReservasDoUsuario(int userId) throws SQLException, ClassNotFoundException{
         List<TodasReservasDoUsuario> lista = new ArrayList<>();
-        String sql = "SELECT f.capa, f.titulo, u.id, u.nome, r.data, r.horario, r.sala, r.status " +
+        String sql = "SELECT f.capa, f.titulo, u.id, u.nome, r.data, r.horario, r.sala, r.status, r.qtd_assentos " +
              "FROM db_reservas r " +
              "JOIN db_usuarios u ON u.id = r.id_usuario " +
              "JOIN db_sessoes s ON s.id = r.id_sessao " +
@@ -92,6 +92,7 @@ public class ReservasDAO {
                     reservas.setNome(rs.getString("nome"));
                     reservas.setData(rs.getDate("data"));
                     reservas.setHora(rs.getTime("horario"));
+                    reservas.setQtdAssentos(rs.getInt("qtd_assentos"));
                     reservas.setSala(rs.getString("sala"));
                     reservas.setStatus(rs.getString("status"));
                     lista.add(reservas);

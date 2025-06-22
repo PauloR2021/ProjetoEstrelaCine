@@ -3,12 +3,17 @@
 <%
     List<FilmeModel> lista = (List<FilmeModel>) request.getAttribute("filmes");
 %>
+<%
+    br.com.prsoftware.model.UsuarioModel usuario = (br.com.prsoftware.model.UsuarioModel) session.getAttribute("usuario");
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Estrela Cine - Sessões Admin</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css-admin/estilo_sessao_admin.css">
 </head>
 <body>
     <header class="cabecalho">
@@ -19,6 +24,10 @@
             <a href="homeAdmin">Home</a>
             <a href="filmesAdmin">Cadastrar Filmes</a>
             <a href="reservasAdmin">Visualizar Todas as Reservas</a>
+            <a href="criarUsuario">Adicionar Usuário</a>
+        </div>
+        <div>
+            <h3>Olá, ${usuario.nome}! 👋</h3>
         </div>
     </header>
 

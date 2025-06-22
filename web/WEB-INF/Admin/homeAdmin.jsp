@@ -5,12 +5,16 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    br.com.prsoftware.model.UsuarioModel usuario = (br.com.prsoftware.model.UsuarioModel) session.getAttribute("usuario");
+%>
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
         <title>Estrela Cine - Home Admin</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css-admin/estilo_home_admin.css">
     </head>
     <body>
         <header class="cabecalho">
@@ -21,10 +25,12 @@
                 <a href="filmesAdmin">Cadastrar Filmes</a>
                 <a href="reservasAdmin">Visualizar Todas as Reservas</a>
                 <a href="sessaoAdmin">Cadastrar Sessões</a>
+                <a href="criarUsuario">Adicionar Usuário</a>
             </div>
         </header>
         <main>
             <h2>Bem-vindo ao Estrela Cine</h2>
+            <h3>Olá, ${usuario.nome}! 👋</h3>
             <p>
                 O <strong>Estrela Cine</strong> é um sistema web de reservas de ingressos para cinema, desenvolvido em Java com Servlets e banco de dados MySQL. 
                 

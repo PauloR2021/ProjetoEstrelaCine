@@ -9,12 +9,17 @@
 <%
     List<FilmeModel> lista = (List<FilmeModel>) request.getAttribute("filmes");
 %>
+<%
+    br.com.prsoftware.model.UsuarioModel usuario = (br.com.prsoftware.model.UsuarioModel) session.getAttribute("usuario");
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Estrela Cine - Filmes Admin</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css-admin/estilo_filmes_admin.css">
     </head>
     <body>
         <header class="cabecalho">
@@ -25,7 +30,12 @@
                 <a href="homeAdmin">Home</a>
                 <a href="reservasAdmin">Visualizar Todas as Reservas</a>
                 <a href="sessaoAdmin">Cadastrar Sessões</a>
+                <a href="criarUsuario">Adicionar Usuário</a>
             </div>
+            <div>
+                <h3>Olá, ${usuario.nome}! 👋</h3>
+            </div>
+           
         </header>
         
         <main>
@@ -47,7 +57,7 @@
                                 <th>Ações</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <thead>
                         <% for (FilmeModel p : lista) { %>
                             <tr>
                                 <td><%= p.getId() %></td>
@@ -63,14 +73,14 @@
                                 <td><%= p.getDuracao() %></td>
                                 <td><%= p.getGenero() %></td>
                                 <td><%= p.getSinopse() %></td>
-                                
+                                <td>
                                     <!-- Botão para editar -->
-                                    <form action="editar" method="post" style="display:inline;">
+                                    <form action="editar" method="get" style="display:inline;">
                                         <input type="hidden" name="id" value="<%= p.getId() %>">
                                         <button type="submit" class="btn-editar" onclick="return confirm('Deseja realmente editar esse filme?')">
                                             Editar
                                         </button>   
-                                    </form>
+                                    </form><br><br>
                                     <!-- Botão para excluir -->
                                     <form action="excluir" method="post" style="display:inline;">
                                         <input type="hidden" name="id" value="<%= p.getId() %>">
@@ -80,8 +90,8 @@
                                     </form>
                                 </td>
                             </tr>
-                        <% } %>
-                        </tbody>
+                            <% } %>
+                        </thead>
                     </table>
                 <% } %>
             </div>

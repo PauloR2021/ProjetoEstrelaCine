@@ -21,8 +21,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -45,6 +44,7 @@ public class SessaoAdminServlet extends HttpServlet {
            return;
         }
         
+        request.setAttribute("usuario", session.getAttribute("usuario"));
         UsuarioModel usuario = (UsuarioModel) session.getAttribute("usuario");
         
         if (!usuario.isAdmin()) {
@@ -57,11 +57,11 @@ public class SessaoAdminServlet extends HttpServlet {
             request.setAttribute("filmes", lista);
             request.getRequestDispatcher("/WEB-INF/Admin/sessaoAdmin.jsp").forward(request, response);
         } catch (SQLException ex) {
-            ex.printStackTrace(); // Mantém no log
             request.setAttribute("mensagemErro", "Erro ao carregar filmes - Erro: "+ex.getMessage());
             request.getRequestDispatcher("erro.jsp").forward(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FilmesAdminServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("mensagemErro", "Erro ao carregar filmes - Erro: "+ex.getMessage());
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
         }
 
 
@@ -69,19 +69,7 @@ public class SessaoAdminServlet extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false); // false = não cria nova sessão
         
-        if (session == null || session.getAttribute("usuario") == null) {
-           response.sendRedirect("login.jsp");
-           return;
-        }
-        
-        UsuarioModel usuario = (UsuarioModel) session.getAttribute("usuario");
-        
-        if (!usuario.isAdmin()) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Acesso não autorizado.");
-            return;
-        }
         try {
             int idFilme = Integer.parseInt(request.getParameter("id")); 
 
@@ -102,13 +90,13 @@ public class SessaoAdminServlet extends HttpServlet {
 
             dao.inserirSessao(sessao);
 
-            request.getRequestDispatcher("/WEB-INF/Admin/filmesAdmin.jsp"); // corrigido
+            response.sendRedirect("filmesAdmin");
         } catch (SQLException ex) {
-            ex.printStackTrace(); // Mantém no log
             request.setAttribute("mensagemErro", "Erro ao Cadastrar o Sessao - Erro: "+ex.getMessage());
             request.getRequestDispatcher("erro.jsp").forward(request, response);
         } catch (Exception e) {
-            Logger.getLogger(SessaoAdminServlet.class.getName()).log(Level.SEVERE, null, e);
+            request.setAttribute("mensagemErro", "Erro ao carregar filmes - Erro: "+e.getMessage());
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
         }
     }
 }

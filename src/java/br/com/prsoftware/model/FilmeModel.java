@@ -14,6 +14,7 @@ import java.sql.Time;
 public class FilmeModel {
     
     private int id;
+    private int idSesao;
     private String titulo;
     private int duracao;
     private String genero;
@@ -35,6 +36,15 @@ public class FilmeModel {
         this.id = id;
     }
 
+    public int getIdSesao() {
+        return idSesao;
+    }
+
+    public void setIdSesao(int idSesao) {
+        this.idSesao = idSesao;
+    }
+
+    
     public String getTitulo() {
         return titulo;
     }

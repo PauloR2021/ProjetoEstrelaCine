@@ -36,6 +36,8 @@ public class FilmesAdminServlet extends HttpServlet{
            response.sendRedirect("login.jsp");
            return;
         }
+        request.setAttribute("usuario", session.getAttribute("usuario"));
+        
         
         UsuarioModel usuario = (UsuarioModel) session.getAttribute("usuario");
         
@@ -49,12 +51,12 @@ public class FilmesAdminServlet extends HttpServlet{
             List<FilmeModel> lista = dao.listarFilmes();
             request.setAttribute("filmes", lista);
             request.getRequestDispatcher("/WEB-INF/Admin/filmesAdmin.jsp").forward(request, response);
-        } catch (SQLException ex) {
-            ex.printStackTrace(); // Mantém no log
-            request.setAttribute("mensagemErro", "Erro ao carregar filmes - Erro : "+ex.getMessage());
+        } catch (SQLException e) {
+            request.setAttribute("mensagemErro", "Erro ao carregar filmes - Erro : "+e.getMessage());
             request.getRequestDispatcher("erro.jsp").forward(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FilmesAdminServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("mensagemErro", "Erro ao carregar filmes - Erro : "+ex.getMessage());
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
         }
     }
     
@@ -79,10 +81,9 @@ public class FilmesAdminServlet extends HttpServlet{
             
             response.sendRedirect("filmesAdmin");
         }catch (NumberFormatException e) {
-            request.setAttribute("mensagemErro", "Duração inválida. Insira um número.");
-            request.getRequestDispatcher("/WEB-INF/Admin/filmesAdmin.jsp").forward(request, response);
+            request.setAttribute("mensagemErro", "Duração inválida. Insira um número - Erro: "+e.getMessage());
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
         }catch (SQLException ex) {
-            ex.printStackTrace(); // Mantém no log
             request.setAttribute("mensagemErro", "Erro ao Cadastrar o Filme - Erro: "+ex.getMessage());
             request.getRequestDispatcher("erro.jsp").forward(request, response);
         } catch (Exception ex) {

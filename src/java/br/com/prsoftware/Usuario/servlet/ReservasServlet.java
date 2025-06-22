@@ -37,17 +37,19 @@ public class ReservasServlet extends HttpServlet {
         }
          
         Integer userId = (Integer) session.getAttribute("usuarioId");
+        request.setAttribute("usuario", session.getAttribute("usuario"));
 
         
         if (userId != null) {
             try {
+                
                 List<TodasReservasDoUsuario> lista = dao.listarTodasReservasDoUsuario(userId);
                 request.setAttribute("reservas", lista);
                 request.getRequestDispatcher("/WEB-INF/Usuario/reservas.jsp").forward(request, response);
              
 
             } catch (SQLException | ClassNotFoundException ex) {
-                ex.printStackTrace();
+            
                 request.setAttribute("mensagemErro", "Erro ao carregar Sessão.");
                 request.getRequestDispatcher("erro.jsp").forward(request, response);
             }

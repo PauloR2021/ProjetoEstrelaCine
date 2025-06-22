@@ -29,7 +29,7 @@
         
         <main>
             <h2>Bem-vindo ao Estrela Cine</h2>
-             <h3>Olá, ${usuario.nome}! 👋</h3>
+            <h3>Olá, ${usuario.nome}! 👋</h3>
             <p>
                 O <strong>Estrela Cine</strong> é um sistema web de reservas de ingressos para cinema, desenvolvido em Java com Servlets e banco de dados MySQL. 
                 

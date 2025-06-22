@@ -4,7 +4,7 @@
  */
 package br.com.prsoftware.Usuario.servlet;
 
-import br.com.prsoftware.Admin.servlet.FilmesAdminServlet;
+
 import br.com.prsoftware.dao.FilmeDAO;
 import br.com.prsoftware.model.FilmeModel;
 import java.io.IOException;
@@ -16,8 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -38,6 +37,8 @@ public class FilmesServlet extends HttpServlet {
            return;
         }
         
+        request.setAttribute("usuario", session.getAttribute("usuario"));
+        
        
         
         try {
@@ -45,11 +46,11 @@ public class FilmesServlet extends HttpServlet {
             request.setAttribute("filmes", lista);
             request.getRequestDispatcher("/WEB-INF/Usuario/filmes.jsp").forward(request, response);
         } catch (SQLException ex) {
-            ex.printStackTrace(); // Mantém no log
             request.setAttribute("mensagemErro", "Erro ao carregar filmes - Erro: "+ex.getMessage());
             request.getRequestDispatcher("erro.jsp").forward(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FilmesAdminServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("mensagemErro", "Erro ao carregar filmes - Erro: "+ex.getMessage());
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
         }
     }
     

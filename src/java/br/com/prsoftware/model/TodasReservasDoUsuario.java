@@ -21,6 +21,7 @@ public class TodasReservasDoUsuario {
     private Time hora;
     private String sala;
     private String status;
+    private int qtdAssentos;
 
     public TodasReservasDoUsuario() {
     }
@@ -90,6 +91,15 @@ public class TodasReservasDoUsuario {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public int getQtdAssentos() {
+        return qtdAssentos;
+    }
+
+    public void setQtdAssentos(int qtdAssentos) {
+        this.qtdAssentos = qtdAssentos;
+    }
+    
     
     
     

@@ -8,6 +8,10 @@
 <%
     List<TodasReservasDoUsuario> lista = (List<TodasReservasDoUsuario>) request.getAttribute("reservas");
 %>
+<%
+    br.com.prsoftware.model.UsuarioModel usuario = (br.com.prsoftware.model.UsuarioModel) session.getAttribute("usuario");
+%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,6 +31,9 @@
                 <a href="filmes">Filmes</a>
                 <a href="sessao">Sessão</a>
             </div>
+            <div>
+                <h3>Olá, ${usuario.nome}! 👋</h3>
+            </div>
         </header>
         
         <main>
@@ -44,6 +51,7 @@
                                 <th>Nome</th>
                                 <th>Data</th>
                                 <th>Horário</th>
+                                <th>Qtd Assentos</th>
                                 <th>Sala</th>
                                 <th>Status</th>
                             </tr>
@@ -64,6 +72,7 @@
                                 <td><%= p.getNome() %></td>
                                 <td><%= p.getData()%></td>
                                 <td><%= p.getHora()%></td>
+                                <td><%= p.getQtdAssentos()%></td>
                                 <td><%= p.getSala()%></td>
                                 <td><%= p.getStatus()%></td>
                             </tr>

@@ -16,8 +16,6 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -38,6 +36,7 @@ public class ReservasAdminServlet extends HttpServlet{
            return;
         }
         
+        request.setAttribute("usuario", session.getAttribute("usuario"));
         UsuarioModel usuario = (UsuarioModel) session.getAttribute("usuario");
         
         if (!usuario.isAdmin()) {
@@ -49,12 +48,12 @@ public class ReservasAdminServlet extends HttpServlet{
              List<ReservasModel> lista = dao.listarReservas();
              request.setAttribute("reservas", lista);
              request.getRequestDispatcher("/WEB-INF/Admin/reservasAdmin.jsp").forward(request, response);
-         } catch (SQLException ex) {
-             ex.printStackTrace(); // Mantém no log
-             request.setAttribute("mensagemErro", "Erro ao Carregar as Reservas - Erro: "+ex.getMessage());
+         } catch (SQLException e) {
+             request.setAttribute("mensagemErro", "Erro ao Carregar as Reservas - Erro: "+e.getMessage());
              request.getRequestDispatcher("erro.jsp").forward(request, response);
          } catch (ClassNotFoundException ex) {
-             Logger.getLogger(FilmesAdminServlet.class.getName()).log(Level.SEVERE, null, ex);
+             request.setAttribute("mensagemErro", "Erro ao Carregar as Reservas - Erro: "+ex.getMessage());
+             request.getRequestDispatcher("erro.jsp").forward(request, response);
          }
     }
     
